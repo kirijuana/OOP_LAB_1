@@ -41,7 +41,7 @@ Mass_word & Mass_word::operator +=(char m[LENGTH]) // Перегрузка опреатора +=/До
 	return *this;
 }
 
-Mass_word & Mass_word::search(const char *m) //поиск слова
+const Mass_word & Mass_word::search(const char *m) //поиск слова
 {
 	int check = 0; //для проверки на 
 	for (int i = 0; i < size; i++)
@@ -96,7 +96,7 @@ Mass_word & Mass_word::operator() (char c) // перегрузка оператора ()
 	return *this;
 }
 
-const Mass_word & Mass_word::sort() // Метод сортировка
+Mass_word & Mass_word::sort() // Метод сортировка
 {
 	char tmp[LENGTH];
 	for (int j = 1; j < size; j++)

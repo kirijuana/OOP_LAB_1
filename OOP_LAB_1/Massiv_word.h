@@ -78,10 +78,10 @@ public:
 	friend istream & operator >>(istream &in, Mass_word &m);
 	friend ostream & operator <<(ostream &out, Mass_word &m);
 	Mass_word & operator +=( char m[LENGTH]); // ѕерегрузка опреатора +=/ƒобавление слова к массиву
-	Mass_word & search(const char *m); //поиск слова
+	const Mass_word & search(const char *m); //поиск слова
 	char* operator[] (const int index); // перегрузка оператора []
 	Mass_word & operator() (char c); // перегрузка оператора ()
-	const Mass_word & sort(); // сортировка
+	Mass_word & sort(); // сортировка
 };
 
 #endif
