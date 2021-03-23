@@ -43,6 +43,15 @@ int main()
 			for (int i = 0; i < size; i++)
 			{
 				cin >> mass[i];
+				for (int j = 0; j < i; j++)
+				{
+					if (!strcmp(mass[i], mass[j]))
+					{
+						cout << "Слово " << mass[i] << " уже есть в массиве. Введите другое слово." << endl;
+						i--;
+						break;
+					}
+				}
 			}
 			m = Mass_word(size, mass);
 		}
@@ -59,8 +68,22 @@ int main()
 		else if (menu == 5)
 		{
 			char str[LENGTH];
-			cout << "Введите слово:" << endl;
-			cin >> str;
+			int check = 0;
+			do 
+			{
+				cout << "Введите слово:" << endl;
+				cin >> str;
+				for (int i = 0; i < SIZE; i++)
+				{
+					if (!strcmp(str, m[i]))
+					{
+						cout << "Слово " << str << " уже есть в массиве. Попробуйте добавить другое слово." << endl;
+						check = 1;
+						break;
+					}
+					check = 0;
+				}
+			} while (check);
 			m += str;
 		}
 		else if (menu == 6)

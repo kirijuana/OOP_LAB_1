@@ -28,7 +28,17 @@ public:
 	}
 	Mass_word(const char *word) //конструктор с одним параметром
 	{
+		
 		size = 1;
+
+		for (int i = 0; i < SIZE; i++)
+		{
+			for (int j = 0; j < LENGTH; j++)
+			{
+				mass[i][j] = ' ';
+			}
+		}
+
 		for (int i = 0; i < size; i++)
 		{
 			for (int j = 0; j < LENGTH; j++)
@@ -43,6 +53,15 @@ public:
 	Mass_word(int size_1, char word[SIZE][LENGTH]) //конструктор с двумя параметрами
 	{
 		size = size_1;
+
+		for (int i = 0; i < SIZE; i++)
+		{
+			for (int j = 0; j < LENGTH; j++)
+			{
+				mass[i][j] = ' ';
+			}
+		}
+		
 		for (int i = 0; i < size; i++)
 		{
 			for (int j = 0; j < LENGTH; j++)
@@ -58,7 +77,7 @@ public:
 	
 	friend istream & operator >>(istream &in, Mass_word &m);
 	friend ostream & operator <<(ostream &out, Mass_word &m);
-	Mass_word & operator +=(const char *m); // Перегрузка опреатора +=/Добавление слова к массиву
+	Mass_word & operator +=( char m[LENGTH]); // Перегрузка опреатора +=/Добавление слова к массиву
 	Mass_word & search(const char *m); //поиск слова
 	char* operator[] (const int index); // перегрузка оператора []
 	Mass_word & operator() (char c); // перегрузка оператора ()

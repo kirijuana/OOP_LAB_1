@@ -5,6 +5,15 @@ istream & operator >>(istream &in, Mass_word &m) {
 	for (int i = 0; i < m.size; i++)
 	{
 		in >> m.mass[i];
+		for (int j = 0; j < i; j++)
+		{
+			if (!strcmp(m.mass[i], m.mass[j]))
+			{
+				cout << "Слово " << m.mass[i] << " уже есть в массиве. Введите другое слово." << endl;
+				i--;
+				break;
+			}
+		}
 	}
 	return in;
 }	
@@ -14,14 +23,11 @@ ostream & operator <<(ostream &out, Mass_word &m)
 	out << "Слова: " << endl;
 	for (int i = 0; i < m.size; i++)
 	{
-		//for (int j = 0; j < LENGTH; j++)
-		//{
-			out << i+1 << ") " << m.mass[i] << endl;
-		//}
+		out << i+1 << ") " << m.mass[i] << endl;
 	}
 	return out;
 }
-Mass_word & Mass_word::operator +=(const char *m) // Перегрузка опреатора +=/Добавление слова к массиву
+Mass_word & Mass_word::operator +=(char m[LENGTH]) // Перегрузка опреатора +=/Добавление слова к массиву
 {
 	size = size + 1;
 	for (int j = 0; j < LENGTH; j++)
@@ -30,6 +36,7 @@ Mass_word & Mass_word::operator +=(const char *m) // Перегрузка опреатора +=/Доб
 			mass[size - 1][j] = m[j];
 		else
 			mass[size - 1][j] = ' ';
+
 	}
 	return *this;
 }
