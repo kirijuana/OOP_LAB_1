@@ -7,8 +7,9 @@ int main()
 {
 	setlocale(LC_ALL, "");
 	Mass_word m;
-	int menu = -1;
-	do
+	int menu = 1;
+
+	while (menu != 0)
 	{
 		cout << "Введите:" << endl;
 		cout << "1. Для создания экземпляра класса с инициализацией одним словом, т.е. строкой символов" << endl;
@@ -22,19 +23,18 @@ int main()
 		cout << "9. Для упорядочивания слов в массиве по алфавиту" << endl;
 		cout << "10. Для создания пустого экземпляра класса" << endl;
 		cout << "0. Для выхода." << endl;
-		
 		cin >> menu;
 		system("cls");
 
-		if (menu == 1)
+		switch (menu)
 		{
+		case 1:
 			cout << "Введите строку:" << endl;
 			char str[LENGTH];
 			cin >> str;
 			m = Mass_word(str);
-		}
-		else if (menu == 2)
-		{
+			break;
+		case 2:
 			cout << "Введите количество слов:" << endl;
 			int size;
 			cin >> size;
@@ -54,22 +54,20 @@ int main()
 				}
 			}
 			m = Mass_word(size, mass);
-		}
-		else if (menu == 3)
-		{
+			break;
+		case 3:
 			m = Mass_word();
 			cout << "Введите " << SIZE << " слов:" << endl;
 			cin >> m;
-		}
-		else if (menu == 4)
-		{
+			break;
+		case 4:
 			cout << m;
-		}
-		else if (menu == 5)
-		{
-			char str[LENGTH];
-			int check = 0;
-			do 
+			break;
+		case 5:
+			char str_1[LENGTH];
+			int check;
+			check = 0;
+			do
 			{
 				cout << "Введите слово:" << endl;
 				cin >> str;
@@ -85,36 +83,37 @@ int main()
 				}
 			} while (check);
 			m += str;
-		}
-		else if (menu == 6)
-		{
-			char str[LENGTH];
+			break;
+		case 6:
+			char str_2[LENGTH];
 			cout << "Введите слово:" << endl;
 			cin >> str;
 			m.search(str);
-		}
-		else if (menu == 7)
-		{
-			int index = 0;
+			break;
+		case 7:
+			int index;
 			cin >> index;
 			cout << "Введите индекс слова для его вывода на экран." << endl;
 			cout << m[index];
-		}
-		else if (menu == 8)
-		{
+			break;
+		case 8:
 			cout << "Введите символ." << endl;
 			char symb;
 			cin >> symb;
 			m(symb);
-		}
-		else if (menu == 9)
-		{
+			break;
+		case 9:
 			m.sort();
 			cout << "Массив упорядочен." << endl;
+			break;
+		case 10:
+			m = Mass_word();
+			cout << "Пустой экземпляр класса создан." << endl;
+			break;
 		}
-
-	} while (menu != 0);
-
-	system("pause");
+		system("pause");
+		system("cls");
+	}
+	
 }
 

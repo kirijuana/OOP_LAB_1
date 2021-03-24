@@ -20,11 +20,19 @@ istream & operator >>(istream &in, Mass_word &m) {
 
 ostream & operator <<(ostream &out, Mass_word &m)
 {
-	out << "Слова: " << endl;
-	for (int i = 0; i < m.size; i++)
+	if (m.size == 0)
 	{
-		out << i+1 << ") " << m.mass[i] << endl;
+		out << "Массив пуст." << endl;
 	}
+	else
+	{ 
+		out << "Слова: " << endl;
+		for (int i = 0; i < m.size; i++)
+		{
+			out << i + 1 << ") " << m.mass[i] << endl;
+		}
+	}
+
 	return out;
 }
 Mass_word & Mass_word::operator +=(char m[LENGTH]) // Перегрузка опреатора +=/Добавление слова к массиву

@@ -2,7 +2,7 @@
 #define _MASS_WORD_
 
 #include <string.h>
-#include <cstring>
+//#include <cstring>
 #include <iostream>
 #include <string>
 #include "constants.h"
@@ -13,7 +13,7 @@ using namespace constants;
 class Mass_word 
 {
 private:
-	int size = SIZE;
+	int size = 0;
 	char mass[SIZE][LENGTH];
 public:
 	Mass_word() //конструктор без параметров
@@ -28,7 +28,6 @@ public:
 	}
 	Mass_word(const char *word) //конструктор с одним параметром
 	{
-		
 		size = 1;
 
 		for (int i = 0; i < SIZE; i++)
@@ -41,13 +40,7 @@ public:
 
 		for (int i = 0; i < size; i++)
 		{
-			for (int j = 0; j < LENGTH; j++)
-			{
-				if (j < sizeof(word))
-					mass[i][j] = word[j];
-				else
-					mass[i][j] = ' ';
-			}
+			strcpy_s(mass[i], word);
 		}
 	}
 	Mass_word(int size_1, char word[SIZE][LENGTH]) //конструктор с двумя параметрами
