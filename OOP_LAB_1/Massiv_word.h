@@ -1,11 +1,10 @@
 #ifndef _MASS_WORD_
 #define _MASS_WORD_
 
-#include <string.h>
-//#include <cstring>
 #include <iostream>
 #include <string>
 #include "constants.h"
+
 
 using namespace std;
 using namespace constants;
@@ -18,7 +17,8 @@ private:
 public:
 	Mass_word() //конструктор без параметров
 	{
-		for (int i = 0; i < SIZE; i++) 
+		size = 0;
+		for (int i = 0; i < SIZE; i++)  //массив обнуляется
 		{
 			for (int j = 0; j < LENGTH; j++)
 			{
@@ -30,7 +30,7 @@ public:
 	{
 		size = 1;
 
-		for (int i = 0; i < SIZE; i++)
+		for (int i = 0; i < SIZE; i++) //массив обнуляется
 		{
 			for (int j = 0; j < LENGTH; j++)
 			{
@@ -46,8 +46,7 @@ public:
 	Mass_word(int size_1, char word[SIZE][LENGTH]) //конструктор с двумя параметрами
 	{
 		size = size_1;
-
-		for (int i = 0; i < SIZE; i++)
+		for (int i = 0; i < SIZE; i++) //массив обнуляется
 		{
 			for (int j = 0; j < LENGTH; j++)
 			{
