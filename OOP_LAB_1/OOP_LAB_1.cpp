@@ -43,15 +43,26 @@ int main()
 			}
 			break;
 		case 2:
-			cout << "Введите количество слов:" << endl;
 			int size;
-			try 
+			int check;
+			check = 1;
+			while (check)
 			{
-				cin >> size;
-			}
-			catch (exception &ex)
-			{
-				cout << ex.what() << std::endl;
+				cout << "Введите количество слов:" << endl;				
+				try
+				{
+					cin >> size;
+					check = 0;
+					if (size > SIZE)
+					{
+						check = 1;
+						throw exception("Недопустимое количество слов. Максимальное количество слов 10.");
+					}
+				}
+				catch (exception &ex)
+				{
+					cout << ex.what() << std::endl;
+				}
 			}
 			cout << "Введите " << size << " слов: " << endl;
 			char mass[SIZE][LENGTH];
@@ -100,7 +111,6 @@ int main()
 			break;
 		case 5:
 			char str_1[LENGTH];
-			int check;
 			check = 0; // переменная для повторного ввода слова, в случае повторения
 			do
 			{
