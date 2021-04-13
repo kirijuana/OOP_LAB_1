@@ -72,6 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\kirijuana\source\repos\OOP_LAB_1\OOP_LAB_1\boost_1_75_0;C:\Users\kirijuana\Desktop\gtests\googletest\include\gtest;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\kirijuana\source\repos\OOP_LAB_1\OOP_LAB_1\boost_1_75_0\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -95,6 +97,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\kirijuana\source\repos\OOP_LAB_1\OOP_LAB_1\boost_1_75_0\boost;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

@@ -6,6 +6,7 @@ int main()
 {
 	setlocale(LC_ALL, "");
 	Mass_word m;
+	char str[LENGTH];
 	int menu = 1;
 
 	while (menu != 11)
@@ -28,13 +29,11 @@ int main()
 		switch (menu)
 		{
 		case 1:
+		{
 			cout << "Введите строку:" << endl;
-			char str[LENGTH];
-			try // проверка на ввод повторяющихся слов
+			cin >> str;
+			try // проверка на ввод длинного слова > 15
 			{
-				cin >> str;
-				if (strlen(str) > LENGTH)
-					throw exception("Введенное слово превышает максимальное значение длинны слова в массиве. Допустимая длинна 15 символов.");
 				m = Mass_word(str);
 			}
 			catch (exception &ex)
@@ -42,55 +41,17 @@ int main()
 				cout << ex.what() << endl;
 			}
 			break;
+		}
 		case 2:
-			int size;
-			int check;
-			check = 1;
-			while (check)
-			{
-				cout << "Введите количество слов:" << endl;				
-				try
-				{
-					cin >> size;
-					check = 0;
-					if (size > SIZE)
-					{
-						check = 1;
-						throw exception("Недопустимое количество слов. Максимальное количество слов 10.");
-					}
-				}
-				catch (exception &ex)
-				{
-					cout << ex.what() << std::endl;
-				}
-			}
-			cout << "Введите " << size << " слов: " << endl;
-			char mass[SIZE][LENGTH];
-			for (int i = 0; i < size; i++)
-			{
-				cin >> mass[i];
-				for (int j = 0; j < i; j++)
-				{
-					try // проверка на ввод повторяющихся слов
-					{
-						if (!strcmp(mass[i], mass[j]))
-							throw exception("Такое слово уже есть в массиве. Введите другое слово.");
-						if (strlen(mass[i]) > LENGTH)
-							throw exception("Введенное слово превышает максимальное значение длинны слова в массиве. Допустимая длинна 15 символов.");
-					}
-					catch (exception &ex)
-					{
-						cout << ex.what() << endl;
-						i--;
-					}
-				}
-			}
-			m = Mass_word(size, mass);
+		{
+			/*char mass[SIZE][LENGTH] = { "Nice", "good", "new", "try", "OK" , "normal" , "ABC" , "ok" , "abc" , "trouble" };*/
+			char mass[10][15] = { "Hello", "QQ", "Good", "Okey", "Hell0", "Play", "why", "Nice", "good", "new" };
+			m = Mass_word(SIZE, mass);
 			break;
+		}
 		case 3:
-			m = Mass_word();
-			cout << "Введите " << SIZE << " слов:" << endl;			
-			try // проверка на ввод повторяющихся слов
+			m = Mass_word();		
+			try 
 			{			
 				cin >> m;
 			}
@@ -100,7 +61,7 @@ int main()
 			}
 			break;
 		case 4:
-			try // проверка на вывод пустого массива
+			try 
 			{
 				cout << m;
 			}
@@ -110,50 +71,32 @@ int main()
 			}
 			break;
 		case 5:
-			char str_1[LENGTH];
-			check = 0; // переменная для повторного ввода слова, в случае повторения
-			do
+		{
+			cin >> str;
+			try 
 			{
-				cout << "Введите слово:" << endl;
-				try // проверка на ввод длинного слова > 15
-				{
-					cin >> str;
-					if (strlen(str) > LENGTH)
-						throw exception("Введенное слово превышает максимальное значение длинны слова в массиве. Допустимая длинна 15 символов.");
-					for (int i = 0; i < SIZE; i++)
-					{
-						try // проверка на ввод повторяющихся слов
-						{
-							if (!strcmp(str, m[i]))
-							{
-								check = 1;
-								throw exception(" Такое слово уже есть в массиве. Попробуйте добавить другое слово.");
-							}
-							check = 0;
-						}
-						catch (exception &ex)
-						{
-							cout << ex.what() << endl;
-							break;
-						}		
-					}
-				}
-				catch (exception &ex)
-				{
-					cout << ex.what() << endl;
-					break;
-				}
-			} while (check);
-			if (!(strlen(str) >= LENGTH))
-				m += str;
+				Mass_word b = Mass_word(str);
+				m += b;
+			}
+			catch (exception &ex)
+			{
+				cout << ex.what() << endl;
+			}
 			break;
+
+		}
 		case 6:
-			char str_2[LENGTH];
+
 			cout << "Введите слово:" << endl;
 			cin >> str;
-			try // проверка на ввод длинного символа
+			try 
 			{				
-				m.search(str);
+				Mass_word b = Mass_word(str);
+				int k = m.search(b);
+				if (k < 0)
+					cout << "Слова " << b[0] << " в массиве нет." << endl;
+				else 
+					cout << "Слово " << b[0] << " есть в массиве. Его индекс: " << k << endl;
 			}
 			catch (exception &ex)
 			{
@@ -163,8 +106,8 @@ int main()
 		case 7:
 			int index;
 			cin >> index;
-			cout << "Введите индекс слова для вывода этого слова на экран." << endl;
-			try // проверка на ввод большого индекса
+			cout << "Введите индекс для вывода слова на экран." << endl;
+			try 
 			{
 				cout << m[index];
 			}
@@ -172,7 +115,6 @@ int main()
 			{
 				cout << ex.what() << endl;
 			}
-			
 			break;
 		case 8:
 			cout << "Введите символ." << endl;
