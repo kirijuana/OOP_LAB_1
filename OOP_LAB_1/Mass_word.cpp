@@ -5,31 +5,36 @@
 
 using namespace boost::algorithm;
 
-istream & operator >>(istream &in, Mass_word &m) {
-	cout << "Введите количество слов:" << endl;
-	cin >> m.size;
-	if (m.size > SIZE || m.size < 0)
-		throw exception("Введено некорректное число слов: > 10 или < 0.");
-
-	char str[LENGTH]= " ";
+istream & operator >>(istream &in, Mass_word &m) //передедлал ввод
+{		
+	char str[LENGTH] = " ";
 	Mass_word temp = Mass_word(str);
-	int size_tmp = 0;
+	
+	in >> temp.size;
+	
+	if (m.size > SIZE || m.size < 0)
+	{
+		in.setstate(ios_base::failbit);
+		return in;
+	}	
 
 	for (int i = 0; i < m.size; i++)
 	{
 		in >> str;
+		
 		if (strlen(str) > LENGTH)
-			throw exception("Введенное слово превышает максимальное значение длинны слова в массиве. Допустимая длинна 15 символов.");
-		strcpy_s(temp.mass[0], str);
-		size_tmp = m.size;
-		m.size = i;
-		m += temp;
-		m.size = size_tmp;
+		{
+			in.setstate(ios_base::failbit);
+			return in;
+		}			
+		strcpy_s(temp.mass[i], str);
 	}
+	m = temp;
+
 	return in;
 }	
 
-ostream & operator <<(ostream &out, Mass_word &m)
+ostream & operator <<(ostream &out, const Mass_word &m)
 {
 	if (m.size == 0)
 		out << "Массив пуст." << endl;
@@ -39,7 +44,6 @@ ostream & operator <<(ostream &out, Mass_word &m)
 		for (int i = 0; i < m.size; i++)
 			out << i + 1 << ") " << m.mass[i] << endl;
 	}
-
 	return out;
 }
 Mass_word & Mass_word::operator +=(const Mass_word &m) // Перегрузка опреатора +=/Добавление слова к массиву
@@ -53,57 +57,46 @@ Mass_word & Mass_word::operator +=(const Mass_word &m) // Перегрузка опреатора +
 		if (!strcmp(m.mass[0], mass[i]))
 			throw exception("Невозможно добавить слово. Оно уже есть в массиве.");
 	}
-
 	strcpy_s(mass[size], m.mass[0]);
 	size = size + 1;	
 	return *this;
 }
 
-const int & Mass_word::search(const Mass_word &m) //поиск слова
+const int & Mass_word::search(const Mass_word &m) // поиск слова
 {
-	int i, check = -1;
+	int i = 0, check = -1;
+	
 	for (i = 0; i < size; i++)
 		if (!strcmp(mass[i], m.mass[0])) //strcmp
 		{
 			check = 1;
 			break;
 		}
+	
 	if (check != 1)
 		i = -1;
-	return i-1;
-}
 
-Mass_word Mass_word::operator() (char c) // перегрузка оператора ()
+	return i;
+ }
+
+Mass_word Mass_word::operator() (char c) const // переделал перегрузку ()
 {
 	char mass_tmp[SIZE][LENGTH];
-
 	int k = 0;
+
 	for (int i = 0; i < size; i++)
 		if (toupper(mass[i][0]) == toupper(c)) 
 		{
 			strcpy_s(mass_tmp[k], mass[i]);
 			k++;
-		}
+		}	
+	Mass_word m_tmp = Mass_word(k, mass_tmp);
 	
-	size = k;
-	for (int i = 0; i < SIZE; i++)
-	{
-		if (i < size)
-			strcpy_s(mass[i], mass_tmp[i]);
-		else
-			for (int j = 0; j < LENGTH; j++)
-				mass[i][j] = ' ';
-	}
-	return *this;
+	return m_tmp;
 }
 
-Mass_word & Mass_word::sort() // Метод сортировка
-{
-	if (size == 0)
-		throw exception("Массив пуст. Сортировка невозможна.");
-	if (size == 1)
-		throw exception("Массив содержит 1 элемент. Сортировка невозможна.");
-	
+Mass_word & Mass_word::sort() // метод сортировка
+{	
 	char tmp[LENGTH];
 	char tmp_mass_1[LENGTH];
 	char tmp_mass_2[LENGTH];
@@ -129,7 +122,7 @@ Mass_word & Mass_word::sort() // Метод сортировка
 	return *this;
 }
 
-const char* Mass_word::operator[] (const int index) const // перегрузка оператора []
+const char* Mass_word::operator[] (int index) const // перегрузка оператора []
 {
 	if (index < 0 || index >= SIZE)
 		throw exception("Введено некорректное значение индекса. < 0 или > 10");

@@ -44,13 +44,13 @@ int main()
 		}
 		case 2:
 		{
-			/*char mass[SIZE][LENGTH] = { "Nice", "good", "new", "try", "OK" , "normal" , "ABC" , "ok" , "abc" , "trouble" };*/
 			char mass[10][15] = { "Hello", "QQ", "Good", "Okey", "Hell0", "Play", "why", "Nice", "good", "new" };
 			m = Mass_word(SIZE, mass);
 			break;
 		}
 		case 3:
 			m = Mass_word();		
+			cout << "Введите количество слов:" << endl;
 			try 
 			{			
 				cin >> m;
@@ -86,7 +86,6 @@ int main()
 
 		}
 		case 6:
-
 			cout << "Введите слово:" << endl;
 			cin >> str;
 			try 
@@ -124,7 +123,7 @@ int main()
 				cin >> symb;			
 				if (symb.length() > 1)
 					throw exception("Вы ввели больше одного символа. Повторите ввод.");		
-				m(symb[0]);
+				Mass_word q = m(symb[0]);
 			}
 			catch (exception &ex)
 			{
@@ -155,7 +154,6 @@ int main()
 		}
 		system("pause");
 		system("cls");
-	}
-	
+	}	
 }
 
